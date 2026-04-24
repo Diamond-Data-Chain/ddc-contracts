@@ -90,3 +90,11 @@ The following are intentionally NOT implemented in Presale v1:
 
 These components will be implemented in future protocol phases.
 
+
+## Future DAO Transition
+
+Production control starts with a 3-of-5 multisig for security during presale and early launch.
+
+After the DDC network is live and governance infrastructure is ready, administrative authority is intended to transition from multisig control to DAO governance.
+
+DAO transition is not part of Presale v1 and will be implemented in a future protocol phase.
