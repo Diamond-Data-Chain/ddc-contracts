@@ -157,3 +157,34 @@ Correct wording:
 Incorrect wording:
 "DDC L1 testnet is live."
 
+
+## DDC-256 Branch Validation Model
+
+DDC consensus is intended to use a 256-branch validation model.
+
+Each transaction/information object is distributed across 256 validation branches.
+
+A transaction is considered valid only when at least 67% of branches confirm the object.
+
+Required confirmation threshold:
+
+- total branches: 256
+- required majority: 67%
+- minimum confirmations: 172 branches
+
+This model is intended to provide parallel validation and fault tolerance before final state acceptance.
+
+Current status:
+- consensus concept defined
+- node software not yet implemented
+- branch validator assignment not yet implemented
+- network propagation rules not yet implemented
+
+TODO(WP):
+- define branch assignment algorithm
+- define validator selection per branch
+- define proof format for branch confirmation
+- define conflict resolution if branches disagree
+- define timeout rules
+- define slashing/penalty rules for invalid confirmations
+- define finality rule after 172 confirmations
