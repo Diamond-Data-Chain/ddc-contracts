@@ -98,3 +98,19 @@ Production control starts with a 3-of-5 multisig for security during presale and
 After the DDC network is live and governance infrastructure is ready, administrative authority is intended to transition from multisig control to DAO governance.
 
 DAO transition is not part of Presale v1 and will be implemented in a future protocol phase.
+
+## Testing Approach
+
+This repository uses production-style E2E scripts instead of isolated unit tests.
+
+The following flows are verified on BNB Testnet:
+
+- full deployment
+- presale funding
+- buyer funding (USDT)
+- approval + buy
+- vesting accounting
+- claimable / locked state validation
+
+Scripts are located in `/scripts` and represent real execution scenarios rather than mocked unit tests.
+
