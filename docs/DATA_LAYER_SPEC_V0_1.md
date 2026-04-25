@@ -199,3 +199,158 @@ Correct wording:
 Incorrect wording:
 
 "All data written to DDC is automatically true."
+
+## Who Verifies Data
+
+Data verification is performed by multiple independent actors, not by the submitter alone.
+
+Verification participants may include:
+
+1. Protocol validators
+2. Domain validators
+3. Source authorities
+4. Challengers
+5. AI-assisted anomaly detectors
+
+No single actor can unilaterally mark data as final truth.
+
+## Validator Types
+
+### Protocol Validators
+
+Protocol validators verify technical correctness:
+
+- hash integrity
+- schema compliance
+- timestamp consistency
+- signature validity
+- duplicate detection
+- metadata completeness
+
+### Domain Validators
+
+Domain validators verify subject-matter plausibility.
+
+Examples:
+- climate data validators
+- medical data validators
+- logistics validators
+- legal document validators
+- scientific dataset validators
+
+TODO(WP):
+- define domain validator onboarding
+- define domain validator qualification requirements
+- define domain-specific validation rules
+
+### Source Authorities
+
+Source authorities are trusted origin references.
+
+Examples:
+- government registers
+- certified sensors
+- licensed institutions
+- signed enterprise systems
+- verified data providers
+
+A source authority does not automatically make data true, but it increases verification weight.
+
+### Challengers
+
+Any eligible participant may challenge a verified or pending data object by submitting counter-evidence.
+
+Challenges prevent false records from becoming permanently trusted without review.
+
+### AI-Assisted Checks
+
+AI may assist with:
+
+- anomaly detection
+- duplicate detection
+- conflict detection
+- risk scoring
+- consistency checks
+
+AI is advisory only and cannot finalize truth alone.
+
+## How Accuracy Is Checked
+
+Accuracy is checked through layered verification.
+
+### Layer 1 — Cryptographic Verification
+
+Checks:
+- submitter signature
+- content hash
+- metadata hash
+- timestamp
+- datasetId consistency
+
+Purpose:
+prove that the submitted record was not altered.
+
+### Layer 2 — Schema Verification
+
+Checks:
+- required fields
+- valid data type
+- valid format
+- required metadata
+- license/access fields
+
+Purpose:
+prove that the data follows protocol rules.
+
+### Layer 3 — Source Verification
+
+Checks:
+- does the claimed source exist?
+- is the submitter authorized?
+- does the source signature match?
+- does the source timestamp match?
+
+Purpose:
+prove that the data came from a valid origin.
+
+### Layer 4 — Cross-Reference Verification
+
+Checks:
+- compare with independent sources
+- compare with historical values
+- compare with known ranges
+- detect contradictions
+
+Purpose:
+detect false or suspicious claims.
+
+### Layer 5 — Validator Attestation
+
+Multiple validators attest to the record.
+
+A record becomes validator-verified only when the required validator threshold is reached.
+
+TODO(WP):
+- define exact threshold
+- define validator weighting
+- define whether DDC-256 branch threshold applies to data validation
+- define minimum domain-validator quorum
+
+### Layer 6 — Challenge Period
+
+Even after validator attestation, the record may remain challengeable for a defined period.
+
+If no valid challenge succeeds, the record may move to a higher trust level.
+
+## Important Rule
+
+DDC verifies evidence, provenance and validator consensus.
+
+DDC must not claim to prove absolute truth in every real-world situation.
+
+Correct claim:
+"DDC provides verifiable provenance, validation state and dispute history."
+
+Incorrect claim:
+"DDC guarantees that all recorded data is objectively true."
+
