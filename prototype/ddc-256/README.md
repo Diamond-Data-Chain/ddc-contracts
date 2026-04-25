@@ -22,3 +22,21 @@ node prototype/ddc-256/ddc256_simulator.js high_timeout
 ## Interpretation
 
 A transaction is valid only if at least 172 of 256 branches confirm it.
+
+## Protocol Prototype
+
+The extended prototype demonstrates:
+
+- validator registry
+- stake-weighted deterministic branch assignment
+- 256 branch validation
+- signed branch attestations
+- aggregation proof root
+- 172/256 finality threshold
+- basic data-object schema validation
+
+Run:
+
+node prototype/ddc-256/ddc256_protocol_prototype.js normal
+node prototype/ddc-256/ddc256_protocol_prototype.js attack
+node prototype/ddc-256/ddc256_protocol_prototype.js timeout
