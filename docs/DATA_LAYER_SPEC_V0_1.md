@@ -354,3 +354,237 @@ Correct claim:
 Incorrect claim:
 "DDC guarantees that all recorded data is objectively true."
 
+
+## Data Submitter Types
+
+DDC data layer supports multiple submitter types. Each type has different trust assumptions and validation requirements.
+
+### 1. Human Submitter
+
+A human may submit data manually.
+
+Requirements may include:
+- wallet signature
+- KYC / verified identity
+- declaration of data source
+- evidence attachment
+- liability / terms acceptance
+
+Use cases:
+- legal documents
+- business records
+- manual reports
+- research submissions
+
+Trust level:
+- low by default
+- increases with KYC, history, reputation and validator confirmation
+
+### 2. Verified Organization
+
+A company, institution or public authority may submit data.
+
+Requirements may include:
+- organization verification
+- authorized signer wallet
+- legal entity metadata
+- source documentation
+- audit trail
+
+Use cases:
+- industry records
+- supply-chain data
+- compliance reports
+- government or registry data
+
+Trust level:
+- medium/high depending on verification and reputation
+
+### 3. Machine / Device Submitter
+
+A machine, QR scanner, IoT device, sensor or industrial system may submit data.
+
+Requirements may include:
+- registered device identity
+- device public key
+- signed payload
+- timestamp
+- location or environment metadata
+- calibration / certification metadata
+
+Use cases:
+- QR-code scanning
+- factory events
+- logistics tracking
+- sensor data
+- equipment status
+
+Trust level:
+- depends on device certification, tamper resistance and data consistency
+
+### 4. QR / Barcode / NFC Reader
+
+A scanner may submit event data when reading QR, barcode, RFID or NFC tags.
+
+Example event:
+- product scanned
+- package moved
+- component verified
+- certificate checked
+- access event recorded
+
+Required fields:
+- scanner identity
+- scanned object identifier
+- timestamp
+- location metadata if allowed
+- operator identity if required
+- signed scan event
+
+Important:
+A scan proves that a code/tag was read.
+It does not automatically prove that the physical object is genuine unless additional validation exists.
+
+### 5. On-Chain Submitter
+
+Another blockchain contract, wallet or oracle may submit data.
+
+Requirements may include:
+- source chain id
+- source contract address
+- transaction hash
+- block number
+- proof/reference
+- bridge/oracle attestation if cross-chain
+
+Use cases:
+- crypto transactions
+- token ownership proofs
+- DeFi events
+- NFT/data ownership references
+- cross-chain records
+
+Trust level:
+- depends on source chain finality and bridge/oracle trust model
+
+### 6. Oracle / API Submitter
+
+An oracle or API provider may submit external-world data.
+
+Requirements may include:
+- oracle identity
+- signed response
+- source URL/reference hash
+- timestamp
+- aggregation proof if multiple sources are used
+
+Use cases:
+- price data
+- weather data
+- market data
+- public statistics
+- external registries
+
+Trust level:
+- medium, unless backed by multiple independent sources
+
+### 7. AI-Assisted Submitter
+
+AI may prepare or classify data for submission, but must not be treated as final authority.
+
+Requirements:
+- human/system owner signature
+- model/version metadata
+- input/output hash
+- confidence score
+- audit trail
+
+Use cases:
+- classification
+- anomaly reports
+- document extraction
+- metadata generation
+
+Trust level:
+- advisory only until validator-confirmed
+
+## Context-Specific Validation
+
+DDC must not validate all data the same way.
+
+### Industrial Data
+
+Requires:
+- device identity
+- operator identity where relevant
+- timestamp
+- production-line or facility metadata
+- calibration/certification proof
+- anomaly detection
+- domain validator review for critical events
+
+### Crypto / On-Chain Data
+
+Requires:
+- source chain
+- transaction hash
+- block confirmation depth
+- contract address
+- event signature
+- proof or oracle attestation for cross-chain claims
+
+### Legal / Compliance Data
+
+Requires:
+- verified submitter
+- document hash
+- signer identity
+- jurisdiction metadata
+- timestamp
+- source authority if applicable
+
+### Scientific / Research Data
+
+Requires:
+- dataset hash
+- methodology reference
+- author/institution identity
+- reproducibility metadata
+- peer/domain validation
+
+### Supply Chain Data
+
+Requires:
+- item identifier
+- scanner/device identity
+- custody event type
+- timestamp
+- location metadata if allowed
+- previous custody reference
+- anomaly detection
+
+## Submitter Trust Score
+
+Each submitter may have a trust score based on:
+
+- identity verification level
+- historical accuracy
+- successful challenges against them
+- validator confirmations
+- domain reputation
+- device certification
+- source authority status
+
+A higher trust score may reduce review friction but must not bypass critical validation rules.
+
+## Submission Rule
+
+DDC must store the submitter type and validation path used for each data object.
+
+A record should never be marked simply as "verified" without explaining:
+
+- who submitted it
+- what type of submitter they are
+- which checks were performed
+- which validators attested
+- whether it was challenged
