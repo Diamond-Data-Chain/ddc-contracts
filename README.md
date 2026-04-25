@@ -1,3 +1,19 @@
+## Core Protocol Specification
+
+The complete DDC protocol architecture is defined in:
+
+docs/DDC_CORE_PROTOCOL_V1_3.md
+
+This document describes:
+
+- DDC-256 consensus model
+- validator system
+- data validation framework
+- attack model
+- governance transition
+- protocol boundaries and current implementation status
+
+---
 
 ## Ownership & Treasury Policy
 
