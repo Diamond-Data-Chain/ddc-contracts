@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "restart:dev": "fuser -k 3000/tcp || true && rm -rf .next && next dev"
+    "restart:dev": "fuser -k 3000/tcp || true && rm -rf .next && next dev",
+    "test": "node test/run_all.js"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^5.4.0",
