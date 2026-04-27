@@ -50,4 +50,17 @@ run(
   ['"finality": false', '"requiredConfirmations": 172']
 );
 
+
+run(
+  "Network flow normal",
+  "node prototype/network-flow/ddc_network_flow.js normal",
+  ['"finality": true', '"requiredConfirmations": 172', '"attestations": 256']
+);
+
+run(
+  "Network flow attack",
+  "node prototype/network-flow/ddc_network_flow.js attack",
+  ['"finality": false', '"requiredConfirmations": 172']
+);
+
 console.log("\nALL TESTS PASSED");
