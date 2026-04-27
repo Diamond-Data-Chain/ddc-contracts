@@ -50,8 +50,6 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
     IERC20 public immutable usdt;
     IDDCRewardPool public immutable rewardPool;
     address public immutable treasury;
-    bool public immutable nativeBuyEnabled;
-    uint256 public immutable nativePriceUsd6PerBNB;
 
     uint64 public immutable presaleStart;
     uint8 public currentBatchId;
@@ -100,9 +98,7 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
         address rewardPool_,
         address treasury_,
         uint64 presaleStart_,
-        uint256[40] memory batchPricesUSDT6_,
-        bool nativeBuyEnabled_,
-        uint256 nativePriceUsd6PerBNB_
+        uint256[40] memory batchPricesUSDT6_
     ) Ownable(owner_) {
         require(ddc_ != address(0), "zero ddc");
         require(usdt_ != address(0), "zero usdt");
@@ -110,22 +106,11 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
         require(treasury_ != address(0), "zero treasury");
         require(presaleStart_ > 0, "zero presale start");
 
-        if (nativeBuyEnabled_) {
-            require(nativePriceUsd6PerBNB_ > 0, "native price required");
-        } else {
-            require(
-                nativePriceUsd6PerBNB_ == 0,
-                "native disabled price must be 0"
-            );
-        }
-
         ddc = IERC20(ddc_);
         usdt = IERC20(usdt_);
         rewardPool = IDDCRewardPool(rewardPool_);
         treasury = treasury_;
         presaleStart = presaleStart_;
-        nativeBuyEnabled = nativeBuyEnabled_;
-        nativePriceUsd6PerBNB = nativePriceUsd6PerBNB_;
 
         for (uint8 i = 0; i < TOTAL_BATCHES; i++) {
             require(batchPricesUSDT6_[i] > 0, "zero price");
@@ -144,8 +129,6 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
             isClosed: false
         });
     }
-
-    receive() external payable {}
 
     function pause() external onlyOwner {
         _pause();
@@ -276,60 +259,6 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
         usdt.safeTransferFrom(msg.sender, address(this), usdtAmount);
 
         emit Purchased(msg.sender, batchId, ddcAmount, usdtAmount, true, txId);
-        _syncBatches();
-    }
-
-    function buyWithNative(bytes32 txId)
-        external
-        payable
-        nonReentrant
-        whenNotPaused
-    {
-        require(nativeBuyEnabled, "native disabled");
-        require(msg.value > 0, "zero value");
-        require(!finalized, "finalized");
-
-        uint256 usdtEquivalent =
-            (msg.value * nativePriceUsd6PerBNB) / 1 ether;
-        require(usdtEquivalent >= MIN_PURCHASE_USDT, "below min");
-
-        _syncBatches();
-        uint8 batchId = currentBatchId;
-        Batch storage b = _batches[batchId];
-        require(block.timestamp >= b.startTime, "batch not started");
-        require(block.timestamp <= b.endTime, "batch ended");
-        require(!b.isClosed, "batch closed");
-
-        uint256 newSpent =
-            spentUsdtPerBatch[batchId][msg.sender] + usdtEquivalent;
-        require(newSpent <= MAX_PURCHASE_USDT, "above max");
-
-        uint256 ddcAmount = (usdtEquivalent * 1 ether) / b.priceUSDT;
-        require(ddcAmount > 0, "zero purchase");
-        require(b.sold + ddcAmount <= b.hardCap, "hard cap");
-
-        spentUsdtPerBatch[batchId][msg.sender] = newSpent;
-        b.sold += ddcAmount;
-        totalPurchased[msg.sender] += ddcAmount;
-        totalNominalSold += ddcAmount;
-
-        uint256 buyerPart = ddcAmount / 2;
-        uint256 burnPart = ddcAmount - buyerPart;
-        vestingPrincipal[msg.sender] += buyerPart;
-        totalBuyerPrincipal += buyerPart;
-        totalBurnLockedFromSales += burnPart;
-
-        _userPurchases[msg.sender].push(
-            Purchase({
-                timestamp: uint64(block.timestamp),
-                batchId: batchId,
-                amountDDC: ddcAmount,
-                paidUSDT: usdtEquivalent,
-                txId: txId
-            })
-        );
-
-        emit Purchased(msg.sender, batchId, ddcAmount, msg.value, false, txId);
         _syncBatches();
     }
 

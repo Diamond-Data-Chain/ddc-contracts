@@ -41,7 +41,6 @@ interface IDDCPresaleVesting {
     function userPurchases(address user, uint256 offset, uint256 limit) external view returns (Purchase[] memory);
 
     function buyWithUSDT(uint256 usdtAmount, bytes32 txId) external;
-    function buyWithNative(bytes32 txId) external payable;
     function claim() external;
     function finalize() external;
     function setTGE(uint64 tge_) external;
