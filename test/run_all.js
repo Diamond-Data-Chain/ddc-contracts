@@ -77,4 +77,11 @@ run(
   ["PRESALE ECONOMIC MATH CHECK PASSED"]
 );
 
+
+run(
+  "Batch rollover timing check",
+  "node test/batch_rollover_timing_check.js",
+  ["BATCH ROLLOVER / TIMING CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");

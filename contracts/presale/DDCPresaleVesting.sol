@@ -346,7 +346,27 @@ function withdrawRaisedFunds() external nonReentrant {
     }
 
     function _syncBatches() internal {
-        while (!finalized && currentBatchId <= TOTAL_BATCHES) {
+        // === DDC FIX: deterministic rollover ===
+        {
+            Batch storage bRef = _batches[currentBatchId];
+
+            if (bRef.sold > bRef.hardCap) {
+                revert("invalid batch state");
+            }
+
+            uint256 unsoldLocal = bRef.hardCap > bRef.sold ? bRef.hardCap - bRef.sold : 0;
+
+            uint8 nextIdLocal = currentBatchId + 1;
+            if (nextIdLocal <= TOTAL_BATCHES) {
+                Batch storage nRef = _batches[nextIdLocal];
+                nRef.rolloverIn += unsoldLocal;
+                nRef.hardCap += unsoldLocal;
+            }
+        }
+        // === END FIX ===
+
+
+while (!finalized && currentBatchId <= TOTAL_BATCHES) {
             Batch storage b = _batches[currentBatchId];
             bool soldOut = b.sold >= b.hardCap;
             bool expired = block.timestamp > b.endTime;
