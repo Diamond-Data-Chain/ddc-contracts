@@ -55,6 +55,7 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
     uint8 public currentBatchId;
     uint64 public tgeTimestamp;
     bool public finalized;
+    uint256 public totalClaimed;
 
     mapping(uint8 => Batch) private _batches;
     mapping(address => uint256) public totalPurchased;
@@ -271,9 +272,28 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
         require(amt > 0, "nothing claimable");
 
         claimed[msg.sender] += amt;
+        totalClaimed += amt;
         ddc.safeTransfer(msg.sender, amt);
 
         emit Claimed(msg.sender, amt);
+    }
+
+    function finalizeFundingStatus()
+        external
+        view
+        returns (
+            uint256 buyerReserveRequired,
+            uint256 rewardPoolResidualRequired,
+            uint256 totalRequired,
+            uint256 currentBalance,
+            uint256 shortfall
+        )
+    {
+        buyerReserveRequired = totalBuyerPrincipal - totalClaimed;
+        rewardPoolResidualRequired = PRESALE_NOMINAL_TOTAL - totalBuyerPrincipal;
+        totalRequired = buyerReserveRequired + rewardPoolResidualRequired;
+        currentBalance = ddc.balanceOf(address(this));
+        shortfall = currentBalance >= totalRequired ? 0 : totalRequired - currentBalance;
     }
 
     function finalize() external nonReentrant {
@@ -294,9 +314,11 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
             PRESALE_NOMINAL_TOTAL - totalBuyerPrincipal;
         uint256 residualToRewardPool = remainingPresaleAllocation;
 
+        uint256 buyerReserveRequired = totalBuyerPrincipal - totalClaimed;
+        uint256 totalRequired = buyerReserveRequired + residualToRewardPool;
         require(
-            ddc.balanceOf(address(this)) >= residualToRewardPool,
-            "insufficient DDC funded"
+            ddc.balanceOf(address(this)) >= totalRequired,
+            "insufficient DDC for finalize"
         );
 
         ddc.safeTransfer(address(rewardPool), residualToRewardPool);
@@ -319,6 +341,7 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
 
     
     function sweepRaisedFundsToTreasury() external nonReentrant {
+        require(finalized, "not finalized");
         uint256 usdtBal = usdt.balanceOf(address(this));
         require(usdtBal >= TREASURY_SWEEP_THRESHOLD_USDT, "threshold not reached");
 

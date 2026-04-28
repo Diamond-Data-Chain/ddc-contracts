@@ -84,4 +84,11 @@ run(
   ["BATCH ROLLOVER / TIMING CHECK PASSED"]
 );
 
+
+run(
+  "Finalize treasury liveness check",
+  "node test/finalize_liveness_check.js",
+  ["FINALIZE / TREASURY LIVENESS CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
