@@ -60,6 +60,7 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
     mapping(address => uint256) public totalPurchased;
     mapping(address => uint256) public vestingPrincipal;
     mapping(address => uint256) public claimed;
+    mapping(bytes32 => bool) private _usedTxIds;
     mapping(address => Purchase[]) private _userPurchases;
     mapping(uint8 => mapping(address => uint256)) public spentUsdtPerBatch;
 
@@ -218,6 +219,9 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
         nonReentrant
         whenNotPaused
     {
+        require(txId != bytes32(0), "txId required");
+        require(!_usedTxIds[txId], "txId used");
+        _usedTxIds[txId] = true;
         require(!finalized, "finalized");
         _syncBatches();
 

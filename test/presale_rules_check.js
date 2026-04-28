@@ -14,6 +14,9 @@ must("USDT-only: no buyWithNative in contract", !src.includes("buyWithNative"));
 must("USDT-only: no buyWithNative in interface", !iface.includes("buyWithNative"));
 must("USDT-only: no native price field", !src.includes("nativePriceUsd6PerBNB"));
 must("USDT-only: no native receive payable", !src.includes("receive() external payable"));
+must("txId storage exists", src.includes("_usedTxIds"));
+must("txId zero rejected", src.includes('require(txId != bytes32(0), "txId required")'));
+must("txId replay rejected", src.includes('require(!_usedTxIds[txId], "txId used")'));
 
 must("min purchase exists", src.includes("MIN_PURCHASE_USDT"));
 must("max purchase exists", src.includes("MAX_PURCHASE_USDT"));

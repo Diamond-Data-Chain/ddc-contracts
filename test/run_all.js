@@ -63,4 +63,18 @@ run(
   ['"finality": false', '"requiredConfirmations": 172']
 );
 
+
+run(
+  "Presale rules static check",
+  "node test/presale_rules_check.js",
+  ["PRESALE RULES CHECK PASSED"]
+);
+
+
+run(
+  "Presale economic math check",
+  "node test/presale_economic_math_check.js",
+  ["PRESALE ECONOMIC MATH CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
