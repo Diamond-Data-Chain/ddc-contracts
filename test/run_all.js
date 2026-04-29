@@ -196,4 +196,11 @@ run(
   ["GLOBAL SLASHING EVIDENCE CHECK PASSED"]
 );
 
+
+run(
+  "Evidence gossip check",
+  "node test/evidence_gossip_check.js",
+  ["EVIDENCE GOSSIP CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
