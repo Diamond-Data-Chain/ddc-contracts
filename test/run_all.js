@@ -140,4 +140,11 @@ run(
   ["3-NODE FINALITY CHECK PASSED"]
 );
 
+
+run(
+  "Validator cryptographic signature check",
+  "node test/validator_signature_check.js",
+  ["VALIDATOR SIGNATURE CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
