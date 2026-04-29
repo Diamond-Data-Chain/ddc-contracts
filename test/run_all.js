@@ -126,4 +126,11 @@ run(
   ["NODE BASIC CHECK PASSED"]
 );
 
+
+run(
+  "Node P2P message exchange check",
+  "node test/node_p2p_check.js",
+  ["NODE P2P CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
