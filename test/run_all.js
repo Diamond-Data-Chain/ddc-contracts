@@ -147,4 +147,11 @@ run(
   ["VALIDATOR SIGNATURE CHECK PASSED"]
 );
 
+
+run(
+  "Slashing double-sign check",
+  "node test/slashing_check.js",
+  ["SLASHING CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
