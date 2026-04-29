@@ -203,4 +203,11 @@ run(
   ["EVIDENCE GOSSIP CHECK PASSED"]
 );
 
+
+run(
+  "Stake economics check",
+  "node test/stake_economics_check.js",
+  ["STAKE ECONOMICS CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
