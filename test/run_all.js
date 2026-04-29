@@ -189,4 +189,11 @@ run(
   ["VRF RANDOMNESS CHECK PASSED"]
 );
 
+
+run(
+  "Global slashing evidence check",
+  "node test/slashing_evidence_check.js",
+  ["GLOBAL SLASHING EVIDENCE CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
