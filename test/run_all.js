@@ -112,4 +112,11 @@ run(
   ["VALIDATOR FAIRNESS / STAKE SPLITTING CHECK PASSED"]
 );
 
+
+run(
+  "Validator downtime impact check",
+  "node test/validator_downtime_check.js",
+  ["VALIDATOR DOWNTIME IMPACT CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
