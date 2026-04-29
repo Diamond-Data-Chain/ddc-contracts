@@ -98,4 +98,11 @@ run(
   ["DATA LAYER VALIDATION CHECK PASSED"]
 );
 
+
+run(
+  "Consensus attack check",
+  "node test/consensus_attack_check.js",
+  ["CONSENSUS ATTACK CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
