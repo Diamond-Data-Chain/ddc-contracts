@@ -217,4 +217,11 @@ run(
   ["STAKE-WEIGHTED CONSENSUS CHECK PASSED"]
 );
 
+
+run(
+  "Round-based consensus check",
+  "node test/round_consensus_check.js",
+  ["ROUND-BASED CONSENSUS CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
