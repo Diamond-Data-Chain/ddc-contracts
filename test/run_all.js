@@ -91,4 +91,11 @@ run(
   ["FINALIZE / TREASURY LIVENESS CHECK PASSED"]
 );
 
+
+run(
+  "Data layer validation check",
+  "node test/data_layer_check.js",
+  ["DATA LAYER VALIDATION CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
