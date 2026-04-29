@@ -175,4 +175,11 @@ run(
   ["FORK CHOICE CHECK PASSED"]
 );
 
+
+run(
+  "Network gossip check",
+  "node test/network_gossip_check.js",
+  ["NETWORK GOSSIP CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
