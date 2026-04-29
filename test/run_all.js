@@ -182,4 +182,11 @@ run(
   ["NETWORK GOSSIP CHECK PASSED"]
 );
 
+
+run(
+  "VRF randomness check",
+  "node test/vrf_randomness_check.js",
+  ["VRF RANDOMNESS CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
