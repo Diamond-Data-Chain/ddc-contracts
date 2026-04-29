@@ -119,4 +119,11 @@ run(
   ["VALIDATOR DOWNTIME IMPACT CHECK PASSED"]
 );
 
+
+run(
+  "Node basic check",
+  "node test/node_basic_check.js",
+  ["NODE BASIC CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
