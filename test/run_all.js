@@ -105,4 +105,11 @@ run(
   ["CONSENSUS ATTACK CHECK PASSED"]
 );
 
+
+run(
+  "Validator fairness and stake splitting check",
+  "node test/validator_fairness_check.js",
+  ["VALIDATOR FAIRNESS / STAKE SPLITTING CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
