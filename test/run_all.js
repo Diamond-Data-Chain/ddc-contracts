@@ -154,4 +154,11 @@ run(
   ["SLASHING CHECK PASSED"]
 );
 
+
+run(
+  "Validator registry check",
+  "node test/validator_registry_check.js",
+  ["VALIDATOR REGISTRY CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
