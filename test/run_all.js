@@ -133,4 +133,11 @@ run(
   ["NODE P2P CHECK PASSED"]
 );
 
+
+run(
+  "3-node finality aggregation check",
+  "node test/node_three_finality_check.js",
+  ["3-NODE FINALITY CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
