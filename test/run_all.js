@@ -210,4 +210,11 @@ run(
   ["STAKE ECONOMICS CHECK PASSED"]
 );
 
+
+run(
+  "Stake-weighted consensus check",
+  "node test/stake_weighted_consensus_check.js",
+  ["STAKE-WEIGHTED CONSENSUS CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
