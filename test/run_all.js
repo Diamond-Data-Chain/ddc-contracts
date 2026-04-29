@@ -161,4 +161,11 @@ run(
   ["VALIDATOR REGISTRY CHECK PASSED"]
 );
 
+
+run(
+  "Storage persistence check",
+  "node test/storage_persistence_check.js",
+  ["STORAGE PERSISTENCE CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
