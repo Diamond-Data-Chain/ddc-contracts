@@ -168,4 +168,11 @@ run(
   ["STORAGE PERSISTENCE CHECK PASSED"]
 );
 
+
+run(
+  "Fork choice check",
+  "node test/fork_choice_check.js",
+  ["FORK CHOICE CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
