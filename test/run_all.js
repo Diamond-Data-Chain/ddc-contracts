@@ -231,4 +231,11 @@ run(
   ["ADVERSARIAL ATTACK SUITE CHECK PASSED"]
 );
 
+
+run(
+  "Lock rules check",
+  "node test/lock_rules_check.js",
+  ["LOCK RULES CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
