@@ -224,4 +224,11 @@ run(
   ["ROUND-BASED CONSENSUS CHECK PASSED"]
 );
 
+
+run(
+  "Adversarial attack suite check",
+  "node test/adversarial_attack_suite_check.js",
+  ["ADVERSARIAL ATTACK SUITE CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");

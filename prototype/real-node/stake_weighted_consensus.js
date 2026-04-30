@@ -28,12 +28,13 @@ function votingPower(validators, attestations, status = "confirmed") {
 function hasTwoThirdsQuorum(validators, attestations) {
   const total = totalActiveStake(validators);
   const confirmedPower = votingPower(validators, attestations, "confirmed");
+  const threshold = (total * 2) / 3;
 
   return {
     totalStake: total,
     confirmedPower,
-    requiredPower: Math.floor((total * 2) / 3) + 1,
-    finality: confirmedPower >= Math.floor((total * 2) / 3) + 1,
+    requiredPower: threshold,
+    finality: confirmedPower > threshold,
   };
 }
 
