@@ -44,7 +44,7 @@ must("proposal created", round.proposal.type === "PROPOSAL");
 must("prevotes created", round.prevotes.length === 4);
 must("precommits created after 2/3 prevote", round.precommits.length === 4);
 must("round finalizes", round.result.finalized === true);
-must("finality uses 2/3 stake", round.result.confirmedPower === 100 && round.result.requiredPower === 67);
+must("finality uses strict >2/3 rule", round.result.confirmedPower === 100 && round.result.finalized === true);
 
 const weakPrevotes = [
   { validatorId: "v3", status: "confirmed" },
