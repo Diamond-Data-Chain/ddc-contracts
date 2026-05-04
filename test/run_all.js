@@ -252,4 +252,11 @@ run(
   ["CHAOS SIMULATION CHECK PASSED"]
 );
 
+
+run(
+  "Partition fork merge check",
+  "node test/partition_fork_merge_check.js",
+  ["PARTITION FORK MERGE CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
