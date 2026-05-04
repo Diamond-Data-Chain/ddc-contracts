@@ -1,3 +1,5 @@
+const { hasTwoThirdsQuorum } = require("./stake_weighted_consensus");
+
 class LockManager {
   constructor() {
     this.locks = new Map(); // validatorId → { blockHash, round }
@@ -6,34 +8,59 @@ class LockManager {
   lock(validatorId, blockHash, round) {
     const existing = this.locks.get(validatorId);
 
-    // nema locka → postavi
     if (!existing) {
       this.locks.set(validatorId, { blockHash, round });
-      return;
+      return true;
     }
 
-    // isti blok → može update runde
     if (existing.blockHash === blockHash) {
       if (round >= existing.round) {
         this.locks.set(validatorId, { blockHash, round });
+        return true;
       }
-      return;
+      return false;
     }
 
-    // DRUGI BLOK:
-    // dozvoljeno SAMO ako je veća runda (unlock scenario)
-    if (round > existing.round) {
-      this.locks.set(validatorId, { blockHash, round });
-    }
-    // ako je ista runda → IGNORIŠI (KRITIČNO)
+    // Different block: never override without explicit unlock proof.
+    return false;
   }
 
   canVote(validatorId, blockHash) {
     const lock = this.locks.get(validatorId);
-
     if (!lock) return true;
-
     return lock.blockHash === blockHash;
+  }
+
+  canUnlock(validatorId, targetBlockHash, targetRound, validators, prevotes) {
+    const existing = this.locks.get(validatorId);
+
+    if (!existing) return true;
+    if (existing.blockHash === targetBlockHash) return true;
+    if (targetRound <= existing.round) return false;
+
+    const sameBlockPrevotes = prevotes.filter(
+      v =>
+        v.blockHash === targetBlockHash &&
+        v.round === targetRound &&
+        v.status === "confirmed"
+    );
+
+    const quorum = hasTwoThirdsQuorum(validators, sameBlockPrevotes);
+
+    return quorum.finality === true;
+  }
+
+  unlockAndRelock(validatorId, targetBlockHash, targetRound, validators, prevotes) {
+    if (!this.canUnlock(validatorId, targetBlockHash, targetRound, validators, prevotes)) {
+      return false;
+    }
+
+    this.locks.set(validatorId, {
+      blockHash: targetBlockHash,
+      round: targetRound,
+    });
+
+    return true;
   }
 
   getLock(validatorId) {
