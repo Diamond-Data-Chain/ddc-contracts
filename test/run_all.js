@@ -273,4 +273,11 @@ run(
   ["PEER SCORING CHECK PASSED"]
 );
 
+
+run(
+  "Async network check",
+  "node test/async_network_check.js",
+  ["ASYNC NETWORK CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
