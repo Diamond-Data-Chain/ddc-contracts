@@ -280,4 +280,11 @@ run(
   ["ASYNC NETWORK CHECK PASSED"]
 );
 
+
+run(
+  "Long-running daemon check",
+  "node test/long_running_daemon_check.js",
+  ["LONG-RUNNING DAEMON CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
