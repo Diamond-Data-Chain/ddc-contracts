@@ -245,4 +245,11 @@ run(
   ["NETWORK ATTACK SIMULATION CHECK PASSED"]
 );
 
+
+run(
+  "Chaos simulation check",
+  "node test/chaos_sim_check.js",
+  ["CHAOS SIMULATION CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
