@@ -238,4 +238,11 @@ run(
   ["LOCK RULES CHECK PASSED"]
 );
 
+
+run(
+  "Network attack simulation check",
+  "node test/network_attack_sim_check.js",
+  ["NETWORK ATTACK SIMULATION CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
