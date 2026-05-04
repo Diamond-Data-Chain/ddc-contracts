@@ -287,4 +287,11 @@ run(
   ["LONG-RUNNING DAEMON CHECK PASSED"]
 );
 
+
+run(
+  "P2P socket node check",
+  "node test/p2p_socket_node_check.js",
+  ["P2P SOCKET NODE CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
