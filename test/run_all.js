@@ -259,4 +259,11 @@ run(
   ["PARTITION FORK MERGE CHECK PASSED"]
 );
 
+
+run(
+  "Validator daemon check",
+  "node test/validator_daemon_check.js",
+  ["VALIDATOR DAEMON CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
