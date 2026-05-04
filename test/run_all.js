@@ -266,4 +266,11 @@ run(
   ["VALIDATOR DAEMON CHECK PASSED"]
 );
 
+
+run(
+  "Peer scoring check",
+  "node test/peer_scoring_check.js",
+  ["PEER SCORING CHECK PASSED"]
+);
+
 console.log("\nALL TESTS PASSED");
