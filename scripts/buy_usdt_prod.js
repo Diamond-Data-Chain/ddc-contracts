@@ -19,7 +19,7 @@ async function main() {
   const usdt = new hre.ethers.Contract(usdtAddr, USDT_ABI, buyer);
 
   const amount = 100n * 10n ** 6n;
-  const txId = hre.ethers.keccak256(hre.ethers.toUtf8Bytes("prod-buy-100-usdt"));
+  const txId = hre.ethers.keccak256(hre.ethers.toUtf8Bytes(`prod-buy-100-usdt-${Date.now()}`));
 
   const bal = await usdt.balanceOf(buyer.address);
   console.log("buyer:", buyer.address);
