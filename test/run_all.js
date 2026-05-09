@@ -84,6 +84,12 @@ run(
   ["BATCH ROLLOVER / TIMING CHECK PASSED"]
 );
 
+run(
+  "Batch rollover idempotency check",
+  "node test/batch_rollover_idempotency_check.js",
+  ["BATCH ROLLOVER IDEMPOTENCY CHECK PASSED"]
+);
+
 
 run(
   "Finalize treasury liveness check",
