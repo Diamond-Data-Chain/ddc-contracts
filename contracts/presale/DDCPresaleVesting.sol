@@ -298,7 +298,6 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
 
     function finalize() external nonReentrant {
         require(!finalized, "already finalized");
-        require(currentBatchId == TOTAL_BATCHES, "not last batch");
         _syncBatches();
         require(currentBatchId == TOTAL_BATCHES, "not last batch");
 
