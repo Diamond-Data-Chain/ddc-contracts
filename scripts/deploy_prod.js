@@ -54,9 +54,7 @@ async function main() {
     rewardAddr,
     TREASURY,
     PRESALE_START,
-    prices,
-    false,
-    0
+    prices
   );
   await presale.waitForDeployment();
   const presaleAddr = await presale.getAddress();
