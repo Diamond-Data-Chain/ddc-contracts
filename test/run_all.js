@@ -97,6 +97,12 @@ run(
   ["FINALIZE / TREASURY LIVENESS CHECK PASSED"]
 );
 
+run(
+  "Recorder execution check",
+  "node test/recorder_execution_check.js",
+  ["RECORDER EXECUTION CHECK PASSED"]
+);
+
 
 run(
   "Data layer validation check",
