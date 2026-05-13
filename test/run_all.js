@@ -103,6 +103,12 @@ run(
   ["RECORDER EXECUTION CHECK PASSED"]
 );
 
+run(
+  "Pause execution check",
+  "node test/pause_execution_check.js",
+  ["PAUSE EXECUTION CHECK PASSED"]
+);
+
 
 run(
   "Data layer validation check",
