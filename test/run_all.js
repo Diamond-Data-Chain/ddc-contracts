@@ -109,6 +109,12 @@ run(
   ["PAUSE EXECUTION CHECK PASSED"]
 );
 
+run(
+  "Ownership transfer check",
+  "node test/ownership_transfer_check.js",
+  ["OWNERSHIP TRANSFER CHECK PASSED"]
+);
+
 
 run(
   "Data layer validation check",
