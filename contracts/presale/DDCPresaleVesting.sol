@@ -89,8 +89,7 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
     event PresaleFinished(uint256 totalSold, uint256 unsoldToRewards);
     event RaisedFundsWithdrawn(
         address indexed treasury,
-        uint256 usdtAmount,
-        uint256 nativeAmount
+        uint256 usdtAmount
     );
 
     constructor(
@@ -353,7 +352,7 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
         swept = (usdtBal / TREASURY_SWEEP_THRESHOLD_USDT) * TREASURY_SWEEP_THRESHOLD_USDT;
         usdt.safeTransfer(treasury, swept);
 
-        emit RaisedFundsWithdrawn(treasury, swept, 0);
+        emit RaisedFundsWithdrawn(treasury, swept);
     }
 
 function withdrawRaisedFunds() external nonReentrant {
@@ -365,13 +364,7 @@ function withdrawRaisedFunds() external nonReentrant {
             usdt.safeTransfer(treasury, usdtBal);
         }
 
-        uint256 nativeBal = address(this).balance;
-        if (nativeBal > 0) {
-            (bool ok,) = treasury.call{value: nativeBal}("");
-            require(ok, "native withdraw failed");
-        }
-
-        emit RaisedFundsWithdrawn(treasury, usdtBal, nativeBal);
+        emit RaisedFundsWithdrawn(treasury, usdtBal);
     }
 
     function _syncBatches() internal {

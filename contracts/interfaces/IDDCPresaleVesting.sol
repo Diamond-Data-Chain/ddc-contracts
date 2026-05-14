@@ -16,7 +16,7 @@ interface IDDCPresaleVesting {
     event Claimed(address indexed user, uint256 amount);
     event TgeSet(uint64 indexed tgeTimestamp);
     event PresaleFinished(uint256 totalSold, uint256 unsoldToRewards);
-    event RaisedFundsWithdrawn(address indexed treasury, uint256 usdtAmount, uint256 nativeAmount);
+    event RaisedFundsWithdrawn(address indexed treasury, uint256 usdtAmount);
 
     function totalBatches() external pure returns (uint8);
     function currentBatch() external view returns (uint8);

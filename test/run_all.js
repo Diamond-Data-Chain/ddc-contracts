@@ -115,6 +115,12 @@ run(
   ["OWNERSHIP TRANSFER CHECK PASSED"]
 );
 
+run(
+  "Auto sweep execution check",
+  "node test/auto_sweep_execution_check.js",
+  ["AUTO SWEEP EXECUTION CHECK PASSED"]
+);
+
 
 run(
   "Data layer validation check",

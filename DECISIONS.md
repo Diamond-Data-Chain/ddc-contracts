@@ -49,3 +49,30 @@ Files:
 - app/my-record/page.tsx
 - app/public-ddc-token/page.tsx
 
+
+## Auto Treasury Chunk Sweep (USDT-only)
+
+Decision:
+- Presale operates USDT-only.
+- Raised USDT stays temporarily inside DDCPresaleVesting.
+- Automatic treasury sweep executes during buyWithUSDT().
+- Sweep transfers exact 10,000 USDT chunks to Treasury Safe.
+- Residual amount below threshold remains buffered in contract.
+- No cron/bot/manual trigger required.
+
+Security rationale:
+- Treasury funds move automatically into 3/5 Safe cold storage.
+- Presale contract minimizes hot-wallet exposure.
+- No external caller dependency.
+
+Important accounting distinction:
+- Treasury sweep transfers USDT only.
+- Finalize DDC funding checks are separate and validate DDC reserve backing for:
+  - buyer claims
+  - reward pool residuals
+
+Affected:
+- contracts/presale/DDCPresaleVesting.sol
+- test/auto_sweep_execution_check.js
+- test/finalize_liveness_check.js
+
