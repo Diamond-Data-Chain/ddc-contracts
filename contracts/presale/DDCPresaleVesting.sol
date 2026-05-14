@@ -263,6 +263,8 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
 
         usdt.safeTransferFrom(msg.sender, address(this), usdtAmount);
 
+        _autoSweepRaisedFunds();
+
         emit Purchased(msg.sender, batchId, ddcAmount, usdtAmount, true, txId);
         _syncBatches();
     }
@@ -340,13 +342,18 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
 
     
     function sweepRaisedFundsToTreasury() external nonReentrant {
-        require(finalized, "not finalized");
+        uint256 swept = _autoSweepRaisedFunds();
+        require(swept > 0, "threshold not reached");
+    }
+
+    function _autoSweepRaisedFunds() internal returns (uint256 swept) {
         uint256 usdtBal = usdt.balanceOf(address(this));
-        require(usdtBal >= TREASURY_SWEEP_THRESHOLD_USDT, "threshold not reached");
+        if (usdtBal < TREASURY_SWEEP_THRESHOLD_USDT) return 0;
 
-        usdt.safeTransfer(treasury, usdtBal);
+        swept = (usdtBal / TREASURY_SWEEP_THRESHOLD_USDT) * TREASURY_SWEEP_THRESHOLD_USDT;
+        usdt.safeTransfer(treasury, swept);
 
-        emit RaisedFundsWithdrawn(treasury, usdtBal, 0);
+        emit RaisedFundsWithdrawn(treasury, swept, 0);
     }
 
 function withdrawRaisedFunds() external nonReentrant {
