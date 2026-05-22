@@ -1,55 +1,109 @@
-# Diamond Data Chain (DDC)
+# Diamond Data Chain — Smart Contracts
+
+Official smart contract repository for the Diamond Data Chain (DDC) protocol.
 
 ## Overview
 
-DDC is a protocol in development consisting of:
+This repository contains:
 
-- on-chain economic layer (BNB Testnet presale)
-- deterministic consensus model (DDC-256)
-- validator system simulation
-- multi-node and message-flow prototypes
-- reproducible test suite
+- DDC presale contracts
+- Treasury infrastructure contracts
+- Reward pool integration
+- Vesting contracts
+- Deployment scripts
+- Verification scripts
+- Staging manifests
+- Monitoring and operational runbooks
 
----
+The contracts are built with:
 
-## Quick Start
+- Solidity
+- Hardhat
+- ethers.js
+- BNB Chain deployment flow
 
-npm install  
-npm test
+## Current Scope
 
----
+Implemented infrastructure includes:
 
-## Structure
+- Batch-based presale logic
+- USDT purchase flow
+- Reward pool reconciliation
+- Vesting infrastructure
+- Treasury payout vaults
+- Pause/unpause controls
+- Permissionless finalize flow
+- Verification tooling
+- Deployment manifests
+- Monitoring configuration
 
-contracts/ → smart contracts  
-prototype/ → consensus + node simulations  
-docs/ → protocol + tokenomics  
-test/ → automated tests  
+## Repository Structure
 
----
+contracts/ — Solidity smart contracts  
+scripts/ — deployment and verification scripts  
+test/ — automated contract tests  
+docs/ — supporting documentation  
 
-## Core Protocol
+## Core Contracts
 
-docs/DDC_CORE_PROTOCOL_V1_3.md
+Primary production contracts:
 
----
+- DDCPresaleVesting
+- DDCVestingVault
+- DDCRewardPool
 
-## Tokenomics
+Treasury infrastructure:
 
-docs/TOKENOMICS_V1.md
+- DDCMonthlyOpsVault
+- DDCAdamasGrantVault
 
----
+## Development
+
+Install dependencies:
+
+npm install
+
+Compile contracts:
+
+npx hardhat compile
+
+Run tests:
+
+npx hardhat test
+
+## Deployment Targets
+
+Current deployment targets:
+
+- BNB Chain Testnet (staging)
+- BNB Chain Mainnet (post-freeze production)
+
+## Operational Documentation
+
+Repository includes:
+
+- deployment runbooks
+- monitoring architecture
+- pause procedures
+- defender setup
+- verification scripts
+- freeze manifests
 
 ## Security
 
-SECURITY.md
+Production ownership model:
 
----
+- multisig-controlled administration
+- permissionless finalize flow
+- emergency pause support
+- ABI freeze process for production releases
 
-## Status
+## Related Repositories
 
-- implemented: presale + prototypes  
-- not implemented: real network, DAO, staking  
+- ddc-web
+- ddc-whitepaper
 
----
+## Disclaimer
+
+This repository contains infrastructure software and protocol contracts for the Diamond Data Chain ecosystem. Nothing in this repository constitutes investment advice, financial solicitation, or guarantees of future performance or value.
 
