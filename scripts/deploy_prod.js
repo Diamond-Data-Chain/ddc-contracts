@@ -64,7 +64,36 @@ async function main() {
   console.log("RewardPool setPresaleOnce tx:", setPresaleTx.hash);
   await setPresaleTx.wait();
 
-  console.log("DONE");
+  const fundAmount = await presale.PRESALE_NOMINAL_TOTAL();
+  const fundTx = await token.transfer(presaleAddr, fundAmount);
+  console.log("Fund Presale DDC tx:", fundTx.hash);
+  await fundTx.wait();
+
+  const Recorder = await hre.ethers.getContractFactory("DDCPresaleRecorder");
+  const recorder = await Recorder.deploy(deployer.address, deployer.address);
+  await recorder.waitForDeployment();
+  const recorderAddr = await recorder.getAddress();
+  console.log("Recorder:", recorderAddr);
+
+  console.log("\n=== FRONTEND ENV ===");
+  console.log("NEXT_PUBLIC_CHAIN_ID=" + hre.network.config.chainId);
+  console.log("NEXT_PUBLIC_PRESALE_ADDRESS=" + presaleAddr);
+  console.log("NEXT_PUBLIC_USDT_ADDRESS=" + USDT);
+  console.log("NEXT_PUBLIC_REWARD_POOL_ADDRESS=" + rewardAddr);
+  console.log("NEXT_PUBLIC_RECORDER_ADDRESS=" + recorderAddr);
+  console.log("NEXT_PUBLIC_DDC_TOKEN_ADDRESS=" + tokenAddr);
+  console.log("NEXT_PUBLIC_TREASURY_ADDRESS=" + TREASURY);
+  console.log("NEXT_PUBLIC_PROJECT_KEY=DDC_PROJECT_V1");
+
+  console.log("\n=== CONTRACT ENV ===");
+  console.log("PRESALE=" + presaleAddr);
+  console.log("REWARD_POOL=" + rewardAddr);
+  console.log("RECORDER=" + recorderAddr);
+  console.log("DDC=" + tokenAddr);
+  console.log("USDT=" + USDT);
+  console.log("TREASURY=" + TREASURY);
+
+  console.log("\nDONE");
 }
 
 main().catch((e) => {

@@ -1,20 +1,18 @@
-# dependencies
-node_modules/
+node_modules
+artifacts
+cache
+coverage
+typechain-types
 
-# build
-artifacts/
-cache/
-
-# env (sensitive)
 .env
 .env.*
 !.env.example
 
-# local junk
-.DS_Store
+*.log
+*.tmp
+*.bak
+*.backup
 
-# legacy / archive
-_STOP_SNAPSHOT/
-_archive/
-scripts/archive_mock_legacy/
-*.bak_*
+ignition/deployments
+
+prototype

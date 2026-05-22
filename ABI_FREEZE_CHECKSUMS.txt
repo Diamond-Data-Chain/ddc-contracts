@@ -1,0 +1,2 @@
+80f4dbde2aeb5c2b4cfe5cd724d9b97f7d680ac0a3df66efb6f9c7383c2200e8  artifacts/contracts/presale/DDCPresaleVesting.sol/DDCPresaleVesting.json
+d87be2ef80b4d3a3967b38e1bcfef15364df40ef93e949740e46009dc3708eea  contracts/interfaces/IDDCPresaleVesting.sol

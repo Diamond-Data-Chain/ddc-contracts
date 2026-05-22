@@ -76,3 +76,69 @@ Affected:
 - test/auto_sweep_execution_check.js
 - test/finalize_liveness_check.js
 
+
+## Treasury payout vault layer
+
+Added:
+- contracts/treasury/DDCMonthlyOpsVault.sol
+- contracts/treasury/DDCAdamasGrantVault.sol
+
+Purpose:
+- transparent operational payout schedule
+- transparent post-finalize Adamas grant payout
+
+MonthlyOpsVault:
+- 168,000 USDT monthly
+- max 12 months
+- starts 30 days after presale start
+- deterministic on-chain payout
+
+Ops wallet:
+0x9c6778909831FcBd7BC0935a6d68f15A4ABf7bAF
+
+AdamasGrantVault:
+- 1,850,000 USDT
+- single unlock
+- requires presale finalized()
+
+Adamas wallet:
+0x90aDD10eb8742CE37bFd2E66c733f9423D41c3fd
+
+Treasury architecture:
+Presale -> Treasury Safe -> payout vault contracts
+
+Result:
+Treasury payout model is transparent, deterministic, and auditable.
+
+## Treasury payout vault layer
+
+Added:
+- contracts/treasury/DDCMonthlyOpsVault.sol
+- contracts/treasury/DDCAdamasGrantVault.sol
+
+Purpose:
+- transparent operational payout schedule
+- transparent post-finalize Adamas grant payout
+
+MonthlyOpsVault:
+- 168,000 USDT monthly
+- max 12 months
+- starts 30 days after presale start
+- deterministic on-chain payout
+
+Ops wallet:
+0x9c6778909831FcBd7BC0935a6d68f15A4ABf7bAF
+
+AdamasGrantVault:
+- 1,850,000 USDT
+- single unlock
+- requires presale finalized()
+
+Adamas wallet:
+0x90aDD10eb8742CE37bFd2E66c733f9423D41c3fd
+
+Treasury architecture:
+Presale -> Treasury Safe -> payout vault contracts
+
+Result:
+Treasury payout model is transparent, deterministic, and auditable.

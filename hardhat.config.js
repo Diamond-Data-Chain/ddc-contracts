@@ -1,3 +1,4 @@
+require("@nomicfoundation/hardhat-verify");
 require("dotenv").config();
 
 try {
@@ -9,6 +10,28 @@ try {
 }
 
 module.exports = {
+  etherscan: {
+    apiKey: process.env.BSCSCAN_API_KEY,
+    customChains: [
+      {
+        network: "bscTestnet",
+        chainId: 97,
+        urls: {
+          apiURL: "https://api.etherscan.io/v2/api?chainid=97",
+          browserURL: "https://testnet.bscscan.com"
+        }
+      },
+      {
+        network: "bsc",
+        chainId: 56,
+        urls: {
+          apiURL: "https://api.etherscan.io/v2/api?chainid=56",
+          browserURL: "https://bscscan.com"
+        }
+      }
+    ]
+  },
+
   solidity: "0.8.20",
 
   networks: {
