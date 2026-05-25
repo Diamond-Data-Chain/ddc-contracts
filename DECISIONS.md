@@ -171,3 +171,18 @@ Verified on BSC Testnet:
 Status:
 PASS
 
+
+## 2026-05-25 — Safe Ownership Transfer Complete
+
+Transferred ownership to DDC Treasury Safe:
+- Safe: 0x08cF1a271b5a05165bBac6D655dD351F7eD61F1f
+- DDCPresaleVesting: 0xC4b27D4aF9008930405CF4fdEA4D7EB07f543C7b
+- DDCRewardPool: 0xF9e6629025a36818cFb8371af75eFa4394a1d8B9
+
+Transaction hashes:
+- Presale transferOwnership: 0x6e2cd824330b4763636a56bcb18457e2874c56039ed48b77363e3e00cbd6e9e4
+- RewardPool transferOwnership: 0x313a08ffe20a7eb196a9a85b98e2d0cd34c425020b4b5b7ed23883c030c32df0
+
+Status:
+PASS
+
