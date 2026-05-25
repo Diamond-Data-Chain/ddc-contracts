@@ -142,3 +142,21 @@ Presale -> Treasury Safe -> payout vault contracts
 
 Result:
 Treasury payout model is transparent, deterministic, and auditable.
+
+## 2026-05-25 — Staging E2E Buy Validated
+
+Validated:
+- WalletConnect v2
+- USDT approval
+- buyWithUSDT
+- batch accounting
+- vesting accounting
+- reward pool integration
+- Vercel staging deployment
+
+DDC token configured:
+- 0xc79C38f01B6845cca08886bEa7f234525D597cfA
+
+Status:
+PASS
+
