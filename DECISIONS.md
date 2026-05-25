@@ -160,3 +160,14 @@ DDC token configured:
 Status:
 PASS
 
+
+## 2026-05-25 — BscScan Verification Complete
+
+Verified on BSC Testnet:
+- DDCToken
+- DDCPresaleVesting
+- DDCRewardPool
+
+Status:
+PASS
+
