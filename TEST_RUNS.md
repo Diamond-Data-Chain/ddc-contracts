@@ -175,3 +175,19 @@ Safe:
 Status:
 PASS
 
+
+## 2026-05-26 — Mainnet Rehearsal Scenario 2 PASS
+
+Scenario:
+Emergency pause state verification
+
+Verified:
+- DDCPresaleVesting paused == false
+- DDCPresaleVesting owner == DDC Treasury Safe
+
+Note:
+Active pause/unpause execution requires Safe transaction execution.
+
+Status:
+PASS
+
