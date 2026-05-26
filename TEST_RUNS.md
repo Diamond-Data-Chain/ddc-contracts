@@ -85,3 +85,22 @@ Mitigation:
 Status:
 EXPECTED FAIL
 
+
+## 2026-05-26 — Vesting Conservation Invariant PASS
+
+Scope:
+- buyer purchase accounting
+- TGE activation
+- partial claim attempt
+- claimed / claimable / locked conservation
+
+Invariant:
+claimed + claimable + locked <= vestingPrincipal
+
+Result:
+- invariant held for all tested users
+- no vesting over-allocation detected
+
+Status:
+PASS
+
