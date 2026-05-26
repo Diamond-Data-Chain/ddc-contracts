@@ -16,3 +16,23 @@ Result:
 Status:
 PASS
 
+
+## 2026-05-26 — Batch Boundary Attack Check PASS
+
+Scope:
+- buy immediately before batch boundary
+- time jump across boundary
+- advanceIfEnded execution
+- buy immediately after boundary
+- post-boundary accounting check
+- finalize replay protection check
+
+Result:
+- batch advanced from #1 to #2
+- pre-boundary buy accounted
+- post-boundary buy accounted
+- finalize replay blocked
+
+Status:
+PASS
+
