@@ -104,3 +104,20 @@ Result:
 Status:
 PASS
 
+
+## 2026-05-26 — Global Vesting Conservation PASS
+
+Scope:
+- multiple buyers
+- cumulative vestingPrincipal accounting
+- totalBuyerPrincipal reconciliation
+- post-TGE claim attempt
+- totalClaimed bound check
+
+Invariants:
+- sum(user vestingPrincipal) == totalBuyerPrincipal
+- totalClaimed <= totalBuyerPrincipal
+
+Status:
+PASS
+
