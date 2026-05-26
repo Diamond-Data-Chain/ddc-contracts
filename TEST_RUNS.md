@@ -121,3 +121,23 @@ Invariants:
 Status:
 PASS
 
+
+## 2026-05-26 — Finalize Irreversibility Invariant PASS
+
+Scope:
+- finalize execution
+- post-finalize buy attempt
+- post-finalize advance attempt
+- finalize replay attempt
+- batch immutability after finalize
+
+Invariants:
+- finalized state is one-way
+- buy is blocked after finalize
+- advance is blocked after finalize
+- finalize replay is blocked
+- current batch does not mutate after finalize
+
+Status:
+PASS
+
