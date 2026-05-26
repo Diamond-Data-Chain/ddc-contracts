@@ -36,3 +36,23 @@ Result:
 Status:
 PASS
 
+
+## 2026-05-26 — Finalize Race Condition Check PASS
+
+Scope:
+- repeated batch time jumps
+- advanceIfEnded attempts
+- finalize attempts during transitions
+- buy-after-finalize protection
+- finalize replay protection
+- reward pool balance validation
+
+Result:
+- finalize succeeded
+- buy after finalize blocked
+- finalize replay blocked
+- reward pool received residual DDC
+
+Status:
+PASS
+
