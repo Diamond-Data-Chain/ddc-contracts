@@ -159,3 +159,19 @@ Result:
 Status:
 PASS
 
+
+## 2026-05-26 — Mainnet Rehearsal Scenario 1 PASS
+
+Scenario:
+Ownership verification
+
+Verified:
+- DDCPresaleVesting owner == DDC Treasury Safe
+- DDCRewardPool owner == DDC Treasury Safe
+
+Safe:
+0x08cF1a271b5a05165bBac6D655dD351F7eD61F1f
+
+Status:
+PASS
+
