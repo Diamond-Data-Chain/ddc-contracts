@@ -1,0 +1,149 @@
+const hre = require("hardhat");
+
+async function main() {
+  console.log("=== REWARD INSOLVENCY SIM CHECK ===");
+
+  const [owner, buyer] =
+    await hre.ethers.getSigners();
+
+  const Token =
+    await hre.ethers.getContractFactory("DDCToken");
+
+  const ddc = await Token.deploy(owner.address);
+  await ddc.waitForDeployment();
+
+  const usdt = await Token.deploy(owner.address);
+  await usdt.waitForDeployment();
+
+  const Reward =
+    await hre.ethers.getContractFactory("DDCRewardPool");
+
+  const reward = await Reward.deploy(
+    owner.address,
+    await ddc.getAddress()
+  );
+
+  await reward.waitForDeployment();
+
+  const latest =
+    await hre.ethers.provider.getBlock("latest");
+
+  const start = Number(latest.timestamp) + 1;
+
+  const prices = [
+    10000,10500,11000,11500,12000,12500,13000,13500,14000,14500,
+    15000,15500,16000,16500,17000,17500,18000,18500,19000,19500,
+    20000,20500,21000,21500,22000,22500,23000,23500,24000,24500,
+    25000,25500,26000,26500,27000,27500,28000,28500,29000,29500
+  ];
+
+  const Presale =
+    await hre.ethers.getContractFactory(
+      "DDCPresaleVesting"
+    );
+
+  const presale = await Presale.deploy(
+    owner.address,
+    await ddc.getAddress(),
+    await usdt.getAddress(),
+    await reward.getAddress(),
+    owner.address,
+    start,
+    prices
+  );
+
+  await presale.waitForDeployment();
+
+  await reward.setPresaleOnce(
+    await presale.getAddress()
+  );
+
+  const nominal =
+    await presale.PRESALE_NOMINAL_TOTAL();
+
+  // intentionally underfund presale
+  await ddc.transfer(
+    await presale.getAddress(),
+    nominal / 10n
+  );
+
+  await usdt.transfer(
+    buyer.address,
+    hre.ethers.parseUnits("100000", 18)
+  );
+
+  await usdt.connect(buyer).approve(
+    await presale.getAddress(),
+    hre.ethers.MaxUint256
+  );
+
+  const txid = hre.ethers.keccak256(
+    hre.ethers.toUtf8Bytes("reward-insolvency")
+  );
+
+  try {
+    await presale.connect(buyer).buyWithUSDT(
+      5000n * 1000000n,
+      txid
+    );
+
+    console.log("buy succeeded");
+  } catch (e) {
+    console.log("buy reverted:", e.message);
+  }
+
+  for (let i = 0; i < 40; i++) {
+    await hre.network.provider.send(
+      "evm_increaseTime",
+      [368640]
+    );
+
+    await hre.network.provider.send("evm_mine");
+
+    try {
+      await presale.advanceIfEnded();
+    } catch {}
+
+    try {
+      await presale.finalize();
+    } catch {}
+  }
+
+  const finalized =
+    await presale.finalized();
+
+  console.log("finalized:", finalized);
+
+  const rewardBal = await ddc.balanceOf(
+    await reward.getAddress()
+  );
+
+  console.log(
+    "reward balance:",
+    rewardBal.toString()
+  );
+
+  const presaleBal = await ddc.balanceOf(
+    await presale.getAddress()
+  );
+
+  console.log(
+    "remaining presale balance:",
+    presaleBal.toString()
+  );
+
+  if (!finalized) {
+    throw new Error(
+      "finalize failed under insolvency simulation"
+    );
+  }
+
+  console.log(
+    "REWARD INSOLVENCY SIM CHECK PASSED"
+  );
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

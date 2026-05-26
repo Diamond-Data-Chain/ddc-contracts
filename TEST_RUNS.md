@@ -56,3 +56,32 @@ Result:
 Status:
 PASS
 
+
+## 2026-05-26 — Reward Insolvency Simulation
+
+Scope:
+- intentionally underfunded presale DDC reserve
+- finalize execution under insufficient DDC backing
+- reward reconciliation dependency validation
+
+Observed:
+- buy path still operational
+- finalize remained blocked
+- reward pool reconciliation could not complete
+- reward pool received zero residual
+
+Conclusion:
+Finalize currently requires full DDC funding consistency.
+This is an operational solvency dependency, not an arbitrary finalize path.
+
+Risk Classification:
+MEDIUM (operational insolvency risk)
+
+Mitigation:
+- mandatory pre-launch funding verification
+- finalizeFundingStatus() validation before production
+- multisig operational checklist
+
+Status:
+EXPECTED FAIL
+
