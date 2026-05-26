@@ -141,3 +141,21 @@ Invariants:
 Status:
 PASS
 
+
+## 2026-05-26 — Timelock Execution Check PASS
+
+Scope:
+- deploy DDCTimelock
+- transfer controlled contract ownership to timelock
+- queue admin action
+- block early execution
+- execute after 24h delay
+
+Result:
+- early execution blocked
+- delayed execution succeeded
+- ownership transfer executed through timelock
+
+Status:
+PASS
+
