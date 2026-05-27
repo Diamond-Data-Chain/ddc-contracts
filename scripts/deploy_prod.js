@@ -156,6 +156,33 @@ const prices = [
 
   await advisorsFundTx.wait();
 
+  const rewardFundTx = await token.transfer(
+    rewardAddr,
+    ALLOCATIONS.rewardPool
+  );
+
+  console.log("Fund RewardPool initial allocation tx:", rewardFundTx.hash);
+
+  await rewardFundTx.wait();
+
+  const foundationFundTx = await token.transfer(
+    TREASURY,
+    ALLOCATIONS.foundation
+  );
+
+  console.log("Fund Foundation allocation to Treasury Safe tx:", foundationFundTx.hash);
+
+  await foundationFundTx.wait();
+
+  const treasuryFundTx = await token.transfer(
+    TREASURY,
+    ALLOCATIONS.treasury
+  );
+
+  console.log("Fund Treasury allocation to Treasury Safe tx:", treasuryFundTx.hash);
+
+  await treasuryFundTx.wait();
+
 
   const Recorder = await hre.ethers.getContractFactory("DDCPresaleRecorder");
   const recorder = await Recorder.deploy(deployer.address, deployer.address);
