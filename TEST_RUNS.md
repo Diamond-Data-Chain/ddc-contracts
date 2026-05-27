@@ -222,3 +222,24 @@ Verified:
 Result:
 PASS
 
+
+## 2026-05-27 — Deploy Dry-Run PASS
+
+Scope:
+- local hardhat deploy_prod.js execution
+- total supply verification
+- deterministic 256M allocation funding
+- TeamVault deployment
+- AdvisorsVault deployment
+- RewardPool funding
+- Foundation allocation funding
+- Treasury allocation funding
+
+Result:
+- Expected Total Allocation == Actual Total Supply
+- all allocation funding tx paths executed
+- deploy script completed successfully
+
+Status:
+PASS
+
