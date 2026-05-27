@@ -243,3 +243,22 @@ Result:
 Status:
 PASS
 
+
+## 2026-05-27 — Staging Allocation Balance Check PASS
+
+Scope:
+- new BSC Testnet staging deployment
+- full 256M DDC allocation verification
+- Presale allocation
+- RewardPool allocation
+- Treasury/Foundation Safe allocation
+- TeamVault allocation
+- AdvisorsVault allocation
+
+Result:
+- Total checked == Total supply
+- 256M DDC fully distributed deterministically
+
+Status:
+PASS
+

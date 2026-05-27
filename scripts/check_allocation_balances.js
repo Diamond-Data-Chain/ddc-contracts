@@ -17,7 +17,14 @@ async function main() {
   const TEAM_VAULT = mustAddr("TEAM_VAULT", process.env.TEAM_VAULT);
   const ADVISORS_VAULT = mustAddr("ADVISORS_VAULT", process.env.ADVISORS_VAULT);
 
-  const ddc = await hre.ethers.getContractAt("DDCToken", DDC);
+  const ddc = new hre.ethers.Contract(
+    DDC,
+    [
+      "function balanceOf(address) view returns (uint256)",
+      "function totalSupply() view returns (uint256)"
+    ],
+    hre.ethers.provider
+  );
 
   const expected = {
     presale: hre.ethers.parseEther("102400000"),
