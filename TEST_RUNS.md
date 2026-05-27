@@ -206,3 +206,19 @@ Verified:
 Status:
 PASS
 
+
+## 2026-05-26 — Linear Vesting Vault Check PASS
+
+Scenario:
+DDCLinearVestingVault behavior verification
+
+Verified:
+- early claim blocked
+- unauthorized attacker claim blocked
+- beneficiary claim succeeds
+- linear vesting accounting valid
+- claimed amount matches beneficiary balance
+
+Result:
+PASS
+
