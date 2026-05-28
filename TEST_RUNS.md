@@ -262,3 +262,19 @@ Result:
 Status:
 PASS
 
+
+## 2026-05-28 — Permissionless Batch Advance Check PASS
+
+Scope:
+- expired batch transition
+- public advanceIfEnded() trigger
+- deterministic rollover without purchase
+- duplicate rollover block removed
+
+Result:
+- currentBatchId advanced from 1 to 2 after expiry
+- permissionless batch sync works
+
+Status:
+PASS
+
