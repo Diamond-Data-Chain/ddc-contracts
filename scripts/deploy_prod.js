@@ -20,6 +20,10 @@ async function main() {
 
   const TREASURY = mustAddr("TREASURY", process.env.TREASURY);
   const USDT = mustAddr("USDT", process.env.USDT);
+  const TEAM_BENEFICIARY = mustAddr(
+    "TEAM_BENEFICIARY",
+    process.env.TEAM_BENEFICIARY || "0x06bc0482f31ca4a4a1a1a5a8231b5795e776ba3a"
+  );
 
   const latest = await hre.ethers.provider.getBlock("latest");
   const PRESALE_START = Number(latest.timestamp) - 60;
@@ -100,7 +104,7 @@ const prices = [
   await fundTx.wait();
 
 
-  const TEAM_SAFE = TREASURY;
+  const TEAM_SAFE = TEAM_BENEFICIARY;
   const ADVISORS_SAFE = TREASURY;
 
   const Vault = await hre.ethers.getContractFactory("DDCLinearVestingVault");
@@ -123,6 +127,7 @@ const prices = [
   const teamVaultAddr = await teamVault.getAddress();
 
   console.log("TeamVault:", teamVaultAddr);
+  console.log("TeamBeneficiary:", TEAM_BENEFICIARY);
 
   const advisorsVault = await Vault.deploy(
     tokenAddr,
