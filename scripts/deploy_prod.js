@@ -195,6 +195,18 @@ const prices = [
   const recorderAddr = await recorder.getAddress();
   console.log("Recorder:", recorderAddr);
 
+  const PROJECT_ID = hre.ethers.keccak256(
+    hre.ethers.toUtf8Bytes("DDC_PROJECT_V1")
+  );
+
+  const setRecorderTx = await presale.setRecorderOnce(recorderAddr, PROJECT_ID);
+  console.log("Presale setRecorderOnce tx:", setRecorderTx.hash);
+  await setRecorderTx.wait();
+
+  const setWriterTx = await recorder.setWriter(presaleAddr);
+  console.log("Recorder setWriter tx:", setWriterTx.hash);
+  await setWriterTx.wait();
+
   console.log("\n=== FRONTEND ENV ===");
   console.log("NEXT_PUBLIC_CHAIN_ID=" + hre.network.config.chainId);
   console.log("NEXT_PUBLIC_PRESALE_ADDRESS=" + presaleAddr);

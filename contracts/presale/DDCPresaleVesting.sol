@@ -15,6 +15,20 @@ interface IDDCRewardPool {
     ) external;
 }
 
+interface IDDCPresaleRecorder {
+    function recordPurchase(
+        bytes32 projectId,
+        address user,
+        uint256 ddcAmount,
+        address payAsset,
+        uint256 payAmount,
+        uint8 payMethod,
+        bytes32 memoHash,
+        bytes32 sourceRef,
+        uint64 ts
+    ) external;
+}
+
 contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
     using SafeERC20 for IERC20;
 
@@ -50,6 +64,10 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
     IERC20 public immutable usdt;
     IDDCRewardPool public immutable rewardPool;
     address public immutable treasury;
+
+    IDDCPresaleRecorder public recorder;
+    bytes32 public recorderProjectId;
+    bool public recorderSet;
 
     uint64 public immutable presaleStart;
     uint8 public currentBatchId;
@@ -91,6 +109,7 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
         address indexed treasury,
         uint256 usdtAmount
     );
+    event RecorderSet(address indexed recorder, bytes32 indexed projectId);
 
     constructor(
         address owner_,
@@ -129,6 +148,16 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
             endTime: presaleStart_ + BATCH_DURATION,
             isClosed: false
         });
+    }
+
+    function setRecorderOnce(address recorder_, bytes32 projectId_) external onlyOwner {
+        require(!recorderSet, "recorder already set");
+        require(recorder_ != address(0), "zero recorder");
+        require(projectId_ != bytes32(0), "zero project");
+        recorder = IDDCPresaleRecorder(recorder_);
+        recorderProjectId = projectId_;
+        recorderSet = true;
+        emit RecorderSet(recorder_, projectId_);
     }
 
     function pause() external onlyOwner {
@@ -261,6 +290,20 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
         );
 
         usdt.safeTransferFrom(msg.sender, address(this), usdtAmount);
+
+        if (recorderSet) {
+            recorder.recordPurchase(
+                recorderProjectId,
+                msg.sender,
+                ddcAmount,
+                address(usdt),
+                usdtAmount,
+                1,
+                bytes32(0),
+                txId,
+                uint64(block.timestamp)
+            );
+        }
 
         _autoSweepRaisedFunds();
 
