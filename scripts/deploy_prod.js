@@ -22,7 +22,7 @@ async function main() {
   const USDT = mustAddr("USDT", process.env.USDT);
   const TEAM_BENEFICIARY = mustAddr(
     "TEAM_BENEFICIARY",
-    process.env.TEAM_BENEFICIARY || "0x06bc0482f31ca4a4a1a1a5a8231b5795e776ba3a"
+    process.env.TEAM_BENEFICIARY
   );
 
   const latest = await hre.ethers.provider.getBlock("latest");
