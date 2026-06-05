@@ -69,7 +69,7 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
     bytes32 public recorderProjectId;
     bool public recorderSet;
 
-    uint64 public immutable presaleStart;
+    uint64 public presaleStart;
     uint8 public currentBatchId;
     uint64 public tgeTimestamp;
     bool public finalized;
@@ -110,6 +110,7 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
         uint256 usdtAmount
     );
     event RecorderSet(address indexed recorder, bytes32 indexed projectId);
+    event PresaleStarted(uint64 indexed startTime);
 
     constructor(
         address owner_,
@@ -124,8 +125,6 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
         require(usdt_ != address(0), "zero usdt");
         require(rewardPool_ != address(0), "zero reward pool");
         require(treasury_ != address(0), "zero treasury");
-        require(presaleStart_ > 0, "zero presale start");
-
         ddc = IERC20(ddc_);
         usdt = IERC20(usdt_);
         rewardPool = IDDCRewardPool(rewardPool_);
@@ -137,6 +136,21 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
             _prices[i] = batchPricesUSDT6_[i];
         }
 
+        currentBatchId = 0;
+
+        if (presaleStart_ > 0) {
+            _startPresale(presaleStart_);
+        }
+    }
+
+    function startPresaleOnce(uint64 startTime_) external onlyOwner {
+        require(presaleStart == 0, "presale already started");
+        require(startTime_ >= block.timestamp, "start in past");
+        _startPresale(startTime_);
+    }
+
+    function _startPresale(uint64 startTime_) internal {
+        presaleStart = startTime_;
         currentBatchId = 1;
         _batches[1] = Batch({
             priceUSDT: _prices[0],
@@ -144,10 +158,11 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
             rolloverIn: 0,
             hardCap: BATCH_BASE_ALLOCATION,
             sold: 0,
-            startTime: presaleStart_,
-            endTime: presaleStart_ + BATCH_DURATION,
+            startTime: startTime_,
+            endTime: startTime_ + BATCH_DURATION,
             isClosed: false
         });
+        emit PresaleStarted(startTime_);
     }
 
     function setRecorderOnce(address recorder_, bytes32 projectId_) external onlyOwner {
@@ -252,6 +267,7 @@ contract DDCPresaleVesting is Ownable, Pausable, ReentrancyGuard {
         require(!_usedTxIds[txId], "txId used");
         _usedTxIds[txId] = true;
         require(!finalized, "finalized");
+        require(presaleStart != 0 && currentBatchId != 0, "presale not started");
         _syncBatches();
 
         uint8 batchId = currentBatchId;
@@ -415,7 +431,7 @@ function withdrawRaisedFunds() external nonReentrant {
     }
 
     function _syncBatches() internal {
-while (!finalized && currentBatchId <= TOTAL_BATCHES) {
+while (!finalized && currentBatchId != 0 && currentBatchId <= TOTAL_BATCHES) {
             Batch storage b = _batches[currentBatchId];
             bool soldOut = b.sold >= b.hardCap;
             bool expired = block.timestamp > b.endTime;

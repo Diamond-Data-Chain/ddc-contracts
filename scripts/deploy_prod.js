@@ -26,7 +26,7 @@ async function main() {
   );
 
   const latest = await hre.ethers.provider.getBlock("latest");
-  const PRESALE_START = Number(latest.timestamp) - 60;
+  const PRESALE_START = 0;
 
   
   const ALLOCATIONS = {
