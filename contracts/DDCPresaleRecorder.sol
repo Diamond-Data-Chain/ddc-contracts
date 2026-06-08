@@ -53,11 +53,13 @@ contract DDCPresaleRecorder is Ownable {
 
     constructor(address owner_, address writer_) Ownable(owner_) {
         require(owner_ != address(0), "zero owner");
+        require(writer_ != address(0), "zero writer");
         writer = writer_;
         emit WriterUpdated(writer_);
     }
 
     function setWriter(address writer_) external onlyOwner {
+        require(writer_ != address(0), "zero writer");
         writer = writer_;
         emit WriterUpdated(writer_);
     }
