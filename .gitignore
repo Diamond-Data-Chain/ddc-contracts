@@ -16,3 +16,6 @@ typechain-types
 ignition/deployments
 
 prototype
+
+.next/
+slither-report.txt
